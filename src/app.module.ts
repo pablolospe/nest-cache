@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [CacheModule.registerAsync({
@@ -17,7 +18,8 @@ import { redisStore } from 'cache-manager-redis-yet';
       }),
     }),
   }),
-    UsersModule],
+    UsersModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
