@@ -13,20 +13,25 @@ const users = [
 @Injectable()
 export class UsersService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
-
+  
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
-
+  
   async findAll() {
+    const users = [
+      { id: 1, name: 'John' },
+      { id: 2, name: 'Doe' },
+    ]
     const key = 'users-find-all';
     const usersCached = await this.cacheManager.get(key);
     if (usersCached) {
       return usersCached;
     }
 
-    await this.cacheManager.set(key, users, 1000 * 10); // TTL: TIEMPO QUE GUARDA EN CACHE
     await sleep(3000);
+    
+    await this.cacheManager.set(key, users, 1000 * 10); // TTL: TIEMPO QUE GUARDA EN CACHE
     return users;
   }
 
